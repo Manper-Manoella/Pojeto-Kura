@@ -9,7 +9,7 @@ public class Tarefa {
     private String descricao;
     private LocalDate dataEntrega;
     private Prioridade prioridade; 
-    private boolean concluida; // indica se foi realizada
+    private boolean concluida; // indica se foi concluida ou não
     private boolean ativa; // indica se foi excluída do sistema
 
     // Construtor
@@ -27,18 +27,19 @@ public class Tarefa {
     public static Tarefa criarNovaTarefa() {
         Scanner sc = new Scanner(System.in);
 
-        System.out.print("Título: ");
+        //System.out.print("Título: ");
         String titulo = sc.nextLine();
 
-        System.out.print("Matéria: ");
+        //System.out.print("Matéria: ");
         String materia = sc.nextLine();
 
-        System.out.print("Descrição: ");
+        //System.out.print("Descrição: ");
         String descricao = sc.nextLine();
 
-        System.out.print("Data de entrega (AAAA-MM-DD): ");
+        //System.out.print("Data de entrega (AAAA-MM-DD): ");
         LocalDate dataEntrega = LocalDate.parse(sc.nextLine());
 
+        // Acredito que não é assi  que faz para aparecer como menu suspenso, mas fiz para testar se funciona.
         System.out.println("Escolha a prioridade:");
         System.out.println("1 - Alta");
         System.out.println("2 - Média");
@@ -46,42 +47,42 @@ public class Tarefa {
         int opc = Integer.parseInt(sc.nextLine());
 
         Prioridade prioridade = switch (opc) {
-            case 1 -> Prioridade.ALTA;
-            case 2 -> Prioridade.MEDIA;
-            case 3 -> Prioridade.BAIXA;
-            default -> Prioridade.MEDIA;
+            case 1 -> Prioridade.Alta;
+            case 2 -> Prioridade.Media;
+            case 3 -> Prioridade.Baixa;
+            default -> Prioridade.Media;
         };
 
-        System.out.println("✅ Tarefa criada com sucesso!\n");
+        //System.out.println("Tarefa criada com sucesso!\n");
         return new Tarefa(titulo, materia, descricao, dataEntrega, prioridade);
     }
 
-    // Excluir tarefa (apagar do sistema)
+    // Excluir tarefa
     public void excluirTarefa() {
         this.ativa = false;
-        System.out.println("🗑️ Tarefa excluída do sistema: " + this.titulo);
+        System.out.println("Tarefa excluída do sistema: " + this.titulo);
     }
 
     // Marcar ou desmarcar conclusão
     public void marcarComoConcluida(boolean status) {
         if (!ativa) {
-            System.out.println("❌ Esta tarefa foi excluída e não pode ser alterada.");
+            System.out.println("Esta tarefa foi excluída e não pode ser alterada.");
             return;
         }
         this.concluida = status;
-        System.out.println(status ? "✅ Tarefa marcada como concluída." : "↩️ Tarefa reaberta.");
+        //System.out.println(status ? "Tarefa concluída." : "Tarefa reaberta.");
     }
 
     // Alterar tarefa
     public void alterarTarefa() {
         if (!ativa) {
-            System.out.println("❌ Esta tarefa foi excluída e não pode ser alterada.");
+            System.out.println("Esta tarefa foi excluída e não pode ser alterada.");
             return;
         }
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("\nAlterar tarefa");
-        System.out.println("Pressione ENTER para manter o valor atual ou digite 'cancelar' para desistir.");
+        //System.out.println("\nAlterar tarefa");
+        //System.out.println("Pressione ENTER para manter o valor atual ou digite 'cancelar' para desistir.");
 
         String novoTitulo = this.titulo;
         String novaMateria = this.materia;
@@ -121,9 +122,9 @@ public class Tarefa {
         if (!input.isEmpty()) {
             int opc = Integer.parseInt(input);
             novaPrioridade = switch (opc) {
-                case 1 -> Prioridade.ALTA;
-                case 2 -> Prioridade.MEDIA;
-                case 3 -> Prioridade.BAIXA;
+                case 1 -> Prioridade.Alta;
+                case 2 -> Prioridade.Media;
+                case 3 -> Prioridade.Baixa;
                 default -> novaPrioridade;
             };
         }
@@ -135,7 +136,7 @@ public class Tarefa {
         this.dataEntrega = novaDataEntrega;
         this.prioridade = novaPrioridade;
 
-        System.out.println("✅ Alterações salvas com sucesso!\n");
+        //System.out.println("Alterações salvas com sucesso!\n");
     }
 
     @Override
